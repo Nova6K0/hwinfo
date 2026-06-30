@@ -3,5 +3,5 @@ Changelog
 VERSION
 *.o
 .depend
-hwinfo
+/hwinfo
 hwinfo.pc

@@ -1,0 +1,166 @@
+_hwinfo_module()
+{
+	local cur prev OPTS
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD-1]}"
+	case $prev in
+		'--only')
+			local IFS=$'\n'
+			compopt -o filenames
+			COMPREPLY=( $(compgen -f -- $cur) )
+			return 0
+			;;
+		'--log'|'-l')
+			local IFS=$'\n'
+			compopt -o filenames
+			COMPREPLY=( $(compgen -f -- $cur) )
+			return 0
+			;;
+		'--debug'|'-d')
+			COMPREPLY=( $(compgen -W "1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768 65536 131072 262144 524288 1048576 2097152 4194304 8388608" -- $cur) )
+			return 0
+			;;
+		'--save-config'|'--show-config'|'--write-udi')
+			return 0
+			;;
+		'--format')
+			COMPREPLY=( $(compgen -W "0 1 2 3" -- $cur) )
+			return 0
+			;;
+		'--dump-db'|'--dump-db-raw')
+			COMPREPLY=( $(compgen -W "0 1" -- $cur) )
+			return 0
+			;;
+		'--root')
+			compopt -o filenames
+			COMPREPLY=( $(compgen -o dirnames -- $cur) )
+			return 0
+			;;
+		'--hddb-dir'|'--hddb-dir-new')
+			compopt -o filenames
+			COMPREPLY=( $(compgen -o dirnames -- $cur) )
+			return 0
+			;;
+		'--db')
+			return 0
+			;;
+		'--kernel-version')
+			return 0
+			;;
+		'-h'|'--help'|'--version'|'-p'|'--packages'|'-v'|'--verbose')
+			return 0
+			;;
+	esac
+	case $cur in
+		-*)
+			OPTS="--all
+				--arch
+				--bios
+				--block
+				--bluetooth
+				--braille
+				--bridge
+				--camera
+				--cdrom
+				--chipcard
+				--cpu
+				--disk
+				--display
+				--dsl
+				--dvb
+				--fingerprint
+				--firewire
+				--firewire-ctrl
+				--firewire_ctrl
+				--floppy
+				--framebuffer
+				--gfxcard
+				--hotplug
+				--hotplug-ctrl
+				--hotplug_ctrl
+				--hub
+				--ide
+				--ieee1394
+				--ieee1394-ctrl
+				--ieee1394_ctrl
+				--isapnp
+				--isdn
+				--joystick
+				--keyboard
+				--listmd
+				--manual
+				--memory
+				--mmc-ctrl
+				--mmc_ctrl
+				--modem
+				--monitor
+				--mouse
+				--netcard
+				--netcards
+				--network
+				--network-ctrl
+				--network_ctrl
+				--nvme
+				--partition
+				--pci
+				--pcmcia
+				--pcmcia-ctrl
+				--pcmcia_ctrl
+				--pppoe
+				--printer
+				--reallyall
+				--redasd
+				--scanner
+				--scsi
+				--smp
+				--sound
+				--special
+				--storage-ctrl
+				--storage_ctrl
+				--sys
+				--tape
+				--tv
+				--uml
+				--usb
+				--usb-ctrl
+				--usb_ctrl
+				--vbe
+				--wlan
+				--xen
+				--zip
+				--db
+				--debug
+				--dump-db
+				--dump-db-raw
+				--fast
+				--format
+				--hddb-dir
+				--hddb-dir-new
+				--help
+				--kernel-version
+				--log
+				--map
+				--map2
+				--nowpa
+				--packages
+				--root
+				--save-config
+				--separate
+				--short
+				--show-config
+				--test
+				--verbose
+				--version
+				--write-udi
+				-h -d -l -p -v"
+			COMPREPLY=( $(compgen -W "${OPTS[*]}" -- $cur) )
+			return 0
+			;;
+	esac
+	local IFS=$'\n'
+	compopt -o filenames
+	COMPREPLY=( $(compgen -f -- $cur) )
+	return 0
+}
+complete -F _hwinfo_module hwinfo
