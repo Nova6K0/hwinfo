@@ -177,7 +177,15 @@ void get_serial_info(hd_data_t *hd_data)
    * somewhat buggy at the moment (2.2.13), hence the explicit 44 lines
    * limit. That may be dropped later.
    */
-  sl0 = read_file(PROC_DRIVER_SERIAL, 1, 44);
+
+  char *serial_driver_name = PROC_DRIVER_SERIAL;
+
+  sl0 = read_file(serial_driver_name, 1, 44);
+  if(!sl0) {
+    sl0 = read_file(PROC_DRIVER_SERIAL_OLD, 1, 44);
+    if(sl0) serial_driver_name = PROC_DRIVER_SERIAL_OLD;
+  }
+
   sll = &sl0;
   while(*sll) sll = &(*sll)->next;
   // append Agere modem devices
@@ -206,11 +214,11 @@ void get_serial_info(hd_data_t *hd_data)
 
     if((hd_data->debug & HD_DEB_SERIAL)) {
       /* log just the first 16 entries */
-      ADD2LOG("----- "PROC_DRIVER_SERIAL" -----\n");
+      ADD2LOG("----- %s -----\n", serial_driver_name);
       for(sl = sl0, i = 16; sl && i--; sl = sl->next) {
         ADD2LOG("  %s", sl->str);
       }
-      ADD2LOG("----- "PROC_DRIVER_SERIAL" end -----\n");
+      ADD2LOG("----- %s end -----\n", serial_driver_name);
     }
   }
 #endif	/* !defined(__PPC__) */

@@ -12,7 +12,8 @@
 #define PROC_CDROM_INFO		"/proc/sys/dev/cdrom/info"
 #define PROC_NET_IF_INFO	"/proc/net/dev"
 #define PROC_MODULES		"/proc/modules"
-#define PROC_DRIVER_SERIAL	"/proc/tty/driver/serial"
+#define PROC_DRIVER_SERIAL_OLD	"/proc/tty/driver/serial"
+#define PROC_DRIVER_SERIAL	"/proc/tty/driver/serial_8250"
 #define PROC_DRIVER_MACSERIAL	"/proc/tty/driver/macserial"
 #define PROC_PARPORT_22		"/proc/parport/"			/* Final '/' is essential! */
 #define PROC_PARPORT_24		"/proc/sys/dev/parport/parport"
