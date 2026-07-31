@@ -24,6 +24,8 @@ include Makefile.common
 
 INSTALL_PREFIX = /usr
 
+BASHCOMP_DIR ?= $(DESTDIR)$(INSTALL_PREFIX)/share/bash-completion/completions
+
 ifeq "$(ARCH)" "x86_64"
 LIBDIR		?= $(INSTALL_PREFIX)/lib64
 else ifeq "$(ARCH)" "loongarch64"
@@ -128,6 +130,8 @@ install:
 	install -d -m 755 $(DESTDIR)/var/lib/hardware/udi
 	install -m 644 src/isdn/cdb/ISDN.CDB.txt $(DESTDIR)$(INSTALL_PREFIX)/share/hwinfo
 	install -m 644 src/isdn/cdb/ISDN.CDB.hwdb $(DESTDIR)$(INSTALL_PREFIX)/share/hwinfo
+	install -d -m 755 $(BASHCOMP_DIR)
+	install -m 644 bash-completion/hwinfo $(BASHCOMP_DIR)/hwinfo
 
 archive: changelog
 	@if [ ! -d .git ] ; then echo no git repo ; false ; fi
