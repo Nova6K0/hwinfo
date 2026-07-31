@@ -143,6 +143,7 @@ _hwinfo_module()
 				--map
 				--map2
 				--nowpa
+				--only
 				--packages
 				--root
 				--save-config
